@@ -1,2 +1,2 @@
-# PythonCO2
+# ambientco2
 Python module for CozIR Ambient CO2 sensors 
