@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 __project__ = "ambientco2"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __description__ = "Python module for CozIR Ambient CO2 sensors"
 __packages__ = ["ambientco2"]
 __long_description__ = long_description
