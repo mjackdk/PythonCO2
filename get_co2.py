@@ -1,7 +1,6 @@
-import ambientco2
-import serial
+from ambientco2 import Sensor
 
-########## CozIR connection to Raspberry Pi GPIO ###########
+###### CozIR Ambient connection to Raspberry Pi GPIO #######
 #                                                          #
 #  PIN 3 (3.3V) ->   3V3  (1) (2)  5V                      #
 #                  GPIO2  (3) (4)  5V                      #
@@ -11,13 +10,20 @@ import serial
 #                                                          #
 ############################################################
 
-serial_device = "/dev/ttyS0"     # Raspberry Pi Zero/3/4
+# Uncomment according to setup
+serial_device = "/dev/ttyUSB0"    # Linux
 
-connection = serial.Serial(serial_device)
+sensor = Sensor(serial_device)
 
-ambientco2.setup(connection)
+print("----- init -----")
+print("")
 
-co2 = ambientco2.read(connection)
+print("----- setup -----")
+print("Mode: " + str(sensor.mode))
+print("Fields: " + str(sensor.fields))
+print("")
+
+print("----- measuremnt -----")
+co2 = sensor.get_measurement()
 
 print(co2)
-

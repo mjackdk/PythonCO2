@@ -19,7 +19,7 @@ __classifiers__ = [
     "Operating System :: OS Independent",
 ]
 __keywords__ = ["sensor","CO2","Ambient","CozIR"]
-__requires__ = []
+__requires__ = ["serial"]
 __python_requires__ = '>=3.6'
 
 setup(

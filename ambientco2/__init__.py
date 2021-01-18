@@ -1,2 +1,1 @@
-from .sensor import setup
-from .measure import read
+from .sensor import *
