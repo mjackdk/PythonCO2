@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 __project__ = "ambientco2"
-__version__ = "0.0.3"
+__version__ = "0.1.0"
 __description__ = "Python module for CozIR Ambient CO2 sensors"
 __packages__ = ["ambientco2"]
 __long_description__ = long_description
@@ -13,13 +13,14 @@ __author__ = "Michael Jack"
 __author_email__ = "50518949+mjackdk@users.noreply.github.com"
 __url__ = "https://github.com/mjackdk/PythonCO2"
 __classifiers__ = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Education",
+    "Intended Audience :: Development",
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
 __keywords__ = ["sensor","CO2","Ambient","CozIR"]
-__requires__ = ["serial"]
+__install_requires__ = ["serial", "time"]
 __python_requires__ = '>=3.6'
 
 setup(
@@ -34,6 +35,6 @@ setup(
     url = __url__,
     classifiers = __classifiers__,
     keywords = __keywords__,
-    requires = __requires__,
+    install_requires = __install_requires__,
     python_requires = __python_requires__,
 )
