@@ -15,7 +15,7 @@ __url__ = "https://github.com/mjackdk/PythonCO2"
 __classifiers__ = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Education",
-    "Intended Audience :: Development",
+    "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
