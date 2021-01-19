@@ -1,13 +1,30 @@
 import serial
 import time
 
-class Sensor:
+"""
+sensor.py
+=========
+Core module of ambientco2
 
+"""
+class Sensor:
+    """
+    Main ambientco2 class: initiation, setup and measurements methods
+    """
     modes = (0,1,2)
     output_fields = (4,64,4096,4164)
     values = ("Z","H","T")
 
     def __init__(self, serial_device):
+        """
+        Initiates sensor and calls setup(), returns nothing
+        
+        Parameters
+        ----------
+        serial_device
+            A string pointing to the serial device to use with the sensor
+        
+        """
         try:
             self.__connection = serial.Serial(
                 port = serial_device, 
@@ -21,6 +38,21 @@ class Sensor:
             print("Could not establish serial connection to sensor")
 
     def setup(self, mode = 2, fields = 4):
+        """
+        Called by __init__, and possibly later, returns nothing
+        
+        Parameters
+        ----------
+        mode
+            Integer indicating sensor mode: 0 is command mode, 1 is streaming 
+            mode and 2 is polling mode. Defaults to 2 (polling mode)
+        
+        fields
+            Integer indicating output fields (CO2, temperature and humidity).
+            4 is CO2 only, 64 is temperature only, 4096 is humidity only and
+            4164 all three. Defaults to 4 (CO2 only)
+
+        """
         self.mode = mode
         self.fields = fields
         self.__connection.write(bytes("K " + str(self.mode) + "\r\n", "utf-8"))
