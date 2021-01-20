@@ -59,7 +59,7 @@ See [get_co2.py](https://github.com/mjackdk/PythonCO2/blob/main/get_co2.py) for 
 * [Product page](https://www.co2meter.com/collections/0-1-co2/products/cozir-ambient-5000-ppm-co2-sensor)
 * [Data sheet](https://cdn.shopify.com/s/files/1/0019/5952/files/Datasheet_COZIR_A_CO2Meter_4_15.pdf)
 * [User's Manual](http://co2meters.com/Documentation/Manuals/Manual_GC_0024_0025_0026_Revised8.pdf)
-* [Application Note](http://co2meters.com/Documentation/AppNotes/AN128-COZIRWR-arduino-uart.pdf)
-  and [sample code](http://co2meters.com/Documentation/AppNotes/AN128-COZIRWR-arduino-uart.zip)
+* [Application Note](http://www.co2meters.com/Documentation/AppNotes/AN127-COZIR-sensor-raspberry-pi-uart.pdf)
+  and [sample code](http://www.co2meters.com/Documentation/AppNotes/AN127-COZIR-sensor-raspberry-pi.zip)
 
 
