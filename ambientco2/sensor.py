@@ -1,94 +1,135 @@
 import serial
 import time
 
-"""
-sensor.py
-=========
-Core module of ambientco2
-
-"""
 class Sensor:
+    """Core class of ambientco2, defaults to polling CO2 measurements
+
+    Parameters:
+        serial_device (string): Path to serial device, e.g. '/dev/ttyUSB0'
     """
-    Main ambientco2 class: initiation, setup and measurements methods
-    """
-    modes = (0,1,2)
-    output_fields = (4,64,4096,4164)
-    values = ("Z","H","T")
+
+    # Allowed modes, output_fields and values
+    __modes = {
+        "CMD": 0,
+        "STR": 1,
+        "POL": 2
+    }
+    __output_fields = {
+        "CO2": 4,
+        "HUM": 64,
+        "TMP": 4096,
+        "ALL": 4165
+    }
+    __value = {
+        "CO2": "Z",
+        "HUM": "H",
+        "TMP": "T"
+    }
+
+    # Default mode and fields 
+    __default_mode = "POL"
+    __default_fields = "CO2"
 
     def __init__(self, serial_device):
+        """Creates serial connection to sensor, calls setup() with defaults
+
+        Parameters:
+            serial_device (string): Path to serial device, e.g. '/dev/ttyUSB0'
+
+        Returns:
+            void
         """
-        Initiates sensor and calls setup(), returns nothing
-        
-        Parameters
-        ----------
-        serial_device
-            A string pointing to the serial device to use with the sensor
-        
-        """
+
+        self.__serial_device = serial_device
+
+        self.__connected = False
+
+        self.__mode = Sensor.__default_mode
+        self.__fields = Sensor.__default_fields
+
         try:
             self.__connection = serial.Serial(
-                port = serial_device, 
-                baudrate = 9600,
+                port = serial_device,
+                baudrate = 9600,              # Only supported baud rate
                 bytesize = serial.EIGHTBITS,
                 parity = serial.PARITY_NONE,
                 stopbits = serial.STOPBITS_ONE
             )
-            self.setup()
+            self.__connected = True
+            self.__setup()
+
         except:
             print("Could not establish serial connection to sensor")
 
-    def setup(self, mode = 2, fields = 4):
-        """
-        Called by __init__, and possibly later, returns nothing
-        
-        Parameters
-        ----------
-        mode
-            Integer indicating sensor mode: 0 is command mode, 1 is streaming 
-            mode and 2 is polling mode. Defaults to 2 (polling mode)
-        
-        fields
-            Integer indicating output fields (CO2, temperature and humidity).
-            4 is CO2 only, 64 is temperature only, 4096 is humidity only and
-            4164 all three. Defaults to 4 (CO2 only)
+    def __setup(self):
+        """Sets up sensor (operation) mode and (output) fields
 
+        Use 'mode' and 'fields' properties to change default setup
         """
-        self.mode = mode
-        self.fields = fields
-        self.__connection.write(bytes("K " + str(self.mode) + "\r\n", "utf-8"))
-        self.__connection.write(bytes("M " + str(self.fields) + "\r\n", "utf-8"))
-        time.sleep(0.1)
-        self.__connection.flushInput()
 
     @property
     def mode(self):
+        """Operating mode property
+
+        Possible values are: 'CMD', 'STR' and 'POL'
+
+        Set with 'self.mode = MODE'
+
+        Returns:
+            mode (string): current mode
+        """
         return self.__mode
-    
+
     @mode.setter
     def mode(self, mode):
-        if mode not in self.modes:
-            raise ValueError("Mode is not valid")
-        self.__mode = mode
+        if mode not in Sensor.__modes:
+            raise ValueError("Mode value is not valid")
+        if self.__mode != mode:
+            self.__mode = mode
+            self.__setup()
 
     @property
     def fields(self):
+        """Output fields property
+
+        Possible values are 'CO2', 'HUM', 'TMP' and 'ALL'
+
+        Set with 'self.fields = FIELDS'
+
+        Returns:
+            fields (string): current fields
+        """
         return self.__fields
 
     @fields.setter
     def fields(self, fields):
-        if fields not in self.output_fields:
-            raise ValueError("Fields is not valid")
-        self.__fields = fields
-   
-    def read(self, value = "Z"):
-        if value not in self.values:
-            raise ValueError("Value is not valid")
-        self.value = value
+        if fields not in Sensor.__output_fields:
+            raise ValueError("Fields value is not valid")
+        if self.__fields != fields:
+            self.__fields = fields
+            self.__setup()
 
-        self.__connection.write(bytes(str(self.value) + "\r\n", "utf-8"))
-        self.raw_measurement = self.__connection.read(10)
-        self.measurement = int(self.raw_measurement[2:8])
-        return self.measurement
+    @property
+    def status(self):
+        """Status property (read-only)
 
-if __name__ == '__main__':
-    print("See <https://github.com/mjackdk/PythonCO2> for instructions")
+        Returns a string with connection status, current mode and fields
+
+        Returns:
+            status (string): status message
+        """
+        if self.__connected:
+            status = f"Device: '{self.__serial_device}', " \
+            f"mode: {self.__mode}, fields: {self.__fields}"
+        else:
+            status = f"Sensor NOT connected, check '{self.__serial_device}'"
+        return status
+
+    def read(self):
+        """Reads buffer from serial connection and returns measurement(s)
+
+        Uses 'self.fields' to determine which measurement(s) to return
+        """
+        pass
+
+
