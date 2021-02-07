@@ -3,6 +3,6 @@ Module documentation
 
 Auto-generated from docstrings in the module's source code
 
-.. module:: sensor
+.. module:: ambientco2.sensor
 .. autoclass:: Sensor
     :members:
