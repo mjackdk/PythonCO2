@@ -3,7 +3,7 @@
 
 The CozIR Ambient family of sensors all provide CO2 measurements, at different ranges. Some are able to measure temperature and relative humidity as well. The sensors use serial UART and analog voltage output.
 
-This library has been developed using a **CozIR Ambient 0-5000 ppm CO2 (only)** sensor.
+This module has been developed using a **CozIR Ambient 0-5000 ppm CO2 (only)** sensor.
 
 
 # Development
@@ -15,14 +15,9 @@ Launch | Modes, settings | 1.x.x |
 Sensors | Range, CO2, relative humidity, temperature | 2.x.x |
 
 
-# Library Documentation
+# Documentation
 
-Add the following line to use this library:
-``` python
-from ambientco2 import Sensor
-```
-
-Further documentation on [Read the Docs](https://ambientco2.readthedocs.io/en/latest/index.html)
+Documentation is available on [Read the Docs](https://ambientco2.readthedocs.io/en/latest/index.html)
 
 ## Member functions
 
@@ -53,8 +48,6 @@ co2 = sensor.read()
 print(type(co2))
 print(co2)
 ```
-
-See [get_co2.py](https://github.com/mjackdk/PythonCO2/blob/main/get_co2.py) for a basic example
 
 # Sensor Documentation
 
