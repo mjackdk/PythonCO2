@@ -17,10 +17,12 @@ Sensors | Range, CO2, relative humidity, temperature | 2.x.x |
 
 # Library Documentation
 
-Add the following line to use this libraray:
+Add the following line to use this library:
 ``` python
 from ambientco2 import Sensor
 ```
+
+Further documentation on [Read the Docs](https://ambientco2.readthedocs.io/en/latest/index.html)
 
 ## Member functions
 
